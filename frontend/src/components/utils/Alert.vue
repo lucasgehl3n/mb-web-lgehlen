@@ -19,15 +19,16 @@ const props = defineProps({
     &-error {
         padding: 10px;
         width: 100%;
-        background-color: rgb(253 242 242/1);
-        border-left: 8px solid rgb(248 180 180/1);
+        background-color: $white-secondary;
+        border-left: 8px solid $red-secondary;
     }
 
     &-success {
         padding: 10px;
         width: 100%;
-        background-color: rgb(243 250 247/1);
-        border-left: 8px solid rgb(132 225 188/1);
+        background-color: $white-secondary;
+        border-left: 8px solid $green-secondary;
     }
+
 }
 </style>

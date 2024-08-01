@@ -20,7 +20,7 @@ const emits = defineEmits(['restart-page']);
 const emitRestartPage = () => emits('restart-page');
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .img-success {
     width: 100%;
     max-width: 500px;

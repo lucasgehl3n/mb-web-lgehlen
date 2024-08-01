@@ -15,10 +15,10 @@ const props = defineProps({
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .title-content {
     font-size: 36px;
-    color: #333;
+    color: $dark-primary;
     font-weight: 700;
 }
 </style>

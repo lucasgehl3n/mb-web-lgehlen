@@ -1,110 +1,133 @@
 const { cpf, cnpj } = require('cpf-cnpj-validator');
 const isValidDate = require('../helpers/isValidDate');
+
+const PERSON_TYPE = {
+    PHYSICAL: 'pf',
+    LEGAL: 'pj'
+};
+
+const ERROR_MESSAGES = {
+    EMAIL_REQUIRED: 'Email é obrigatório',
+    PASSWORD_REQUIRED: 'Senha é obrigatória',
+    PERSON_TYPE_REQUIRED: 'Tipo de pessoa é obrigatório',
+    CNPJ_REQUIRED: 'CNPJ é obrigatório',
+    INVALID_CNPJ: 'CNPJ inválido',
+    PERSON_REQUIRED: 'Dados de pessoa é obrigatório',
+    LEGAL_NAME_REQUIRED: 'Razão social é obrigatória',
+    NAME_REQUIRED: 'Nome é obrigatório',
+    CPF_REQUIRED: 'CPF é obrigatório',
+    INVALID_CPF: 'CPF inválido',
+    INVALID_DATE: 'Data inválida!',
+};
+
+
 class RegistrationValidator {
-    constructor() {
+    constructor() { }
+
+    /**
+     * Validate registration data
+     * @param {Object} data - Registration data
+     * @returns {Object} Validation result
+     */
+    static validate(data) {
+        let dataValidation = this.checkRequiredFields(data);
+        if (dataValidation.error) {
+            return dataValidation;
+        }
+
+        if(!data.person){
+            return this.validationError(ERROR_MESSAGES.PERSON_REQUIRED);
+        }
+
+        if (data.typePersonSelected === PERSON_TYPE.LEGAL) {
+            return this.validateLegalPerson(data.person);
+        }
+
+        if (data.typePersonSelected === PERSON_TYPE.PHYSICAL) {
+            return this.validatePhysicalPerson(data.person);
+        }
+
+        return dataValidation;
     }
 
-    static validate(data) {
-        let dataValidation = {
-            error: false,
-            message: '',
-        };
-
+    /**
+     * Verify required fields
+     * @param {Object} data - Registration data
+     * @returns {Object} Validation result
+     */
+    static checkRequiredFields(data) {
         if (!data.email) {
-            dataValidation.error = true;
-            dataValidation.message = 'Email é obrigatório';
+            return this.validationError(ERROR_MESSAGES.EMAIL_REQUIRED);
         }
 
         if (!data.password) {
-            dataValidation.error = true;
-            dataValidation.message = 'Senha é obrigatória';
+            return this.validationError(ERROR_MESSAGES.PASSWORD_REQUIRED);
         }
 
         if (!data.typePersonSelected) {
-            dataValidation.error = true;
-            dataValidation.message = 'Tipo de pessoa é obrigatório';
+            return this.validationError(ERROR_MESSAGES.PERSON_TYPE_REQUIRED);
         }
 
-        if (data.typePersonSelected === 'pj') {
-            dataValidation = this.validateLegalPerson(data.person);
-            if (dataValidation.error) {
-                return dataValidation;
-            }
-        }
-
-        if (data.typePersonSelected === 'pf') {
-            dataValidation = this.validatePhysicalPerson(data.person);
-            if (dataValidation.error) {
-                return dataValidation;
-            }
-        }
-
-        return dataValidation;
+        return { error: false, message: '' };
     }
 
+    /**
+     * Validation of legal person data
+     * @param {Object} data - Legal person data
+     * @returns {Object} Validation result
+     */
     static validateLegalPerson(data) {
-        let dataValidation = {
-            error: false,
-            message: '',
-        };
-
-        if (!data.legalPerson) {
-            dataValidation.error = true;
-            dataValidation.message = 'Pessoa jurídica é obrigatória';
-        }
-
         if (!data.document) {
-            dataValidation.error = true;
-            dataValidation.message = 'CNPJ é obrigatório';
+            return this.validationError(ERROR_MESSAGES.CNPJ_REQUIRED);
         }
 
         if (!cnpj.isValid(data.document)) {
-            dataValidation.error = true;
-            dataValidation.message = 'CNPJ inválido';
+            return this.validationError(ERROR_MESSAGES.INVALID_CNPJ);
         }
 
         if (!data.name) {
-            dataValidation.error = true;
-            dataValidation.message = 'Razão social é obrigatória';
+            return this.validationError(ERROR_MESSAGES.LEGAL_NAME_REQUIRED);
         }
 
         if (!isValidDate(data.dateBirth)) {
-            dataValidation.error = true;
-            dataValidation.message = 'Data inválida!';
-            return dataValidation;
+            return this.validationError(ERROR_MESSAGES.INVALID_DATE);
         }
 
-        return dataValidation;
+        return { error: false, message: '' };
     }
 
+    /**
+     * Validation of physical person data
+     * @param {Object} data - Physical person
+     * @returns {Object} Validation result
+     */
     static validatePhysicalPerson(data) {
-        let dataValidation = {
-            error: false,
-            message: '',
-        };
-
         if (!data.name) {
-            dataValidation.error = true;
-            dataValidation.message = 'Nome é obrigatório';
+            return this.validationError(ERROR_MESSAGES.NAME_REQUIRED);
         }
 
         if (!data.document) {
-            dataValidation.error = true;
-            dataValidation.message = 'CPF é obrigatório';
+            return this.validationError(ERROR_MESSAGES.CPF_REQUIRED);
         }
 
         if (!cpf.isValid(data.document)) {
-            dataValidation.error = true;
-            dataValidation.message = 'CPF inválido';
+            return this.validationError(ERROR_MESSAGES.INVALID_CPF);
         }
 
         if (!isValidDate(data.dateBirth)) {
-            dataValidation.error = true;
-            dataValidation.message = 'Data inválida!';
-            return dataValidation;
+            return this.validationError(ERROR_MESSAGES.INVALID_DATE);
         }
 
-        return dataValidation;
+        return { error: false, message: '' };
+    }
+
+    /**
+     * Create a validation error object
+     * @param {string} message - Error message
+     * @returns {Object} Validation error object
+     */
+    static validationError(message) {
+        return { error: true, message };
     }
 }
 

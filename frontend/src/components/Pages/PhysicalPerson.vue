@@ -31,7 +31,6 @@ import cpfMask from '../../directives/cpf-mask';
 const props = defineProps({
   showTitle: {
     type: Boolean,
-    required: false,
     default: true,
   },
   sharedState: {

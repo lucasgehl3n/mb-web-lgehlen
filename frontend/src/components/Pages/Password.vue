@@ -15,7 +15,6 @@ import StyledInput from '../utils/StyledInput.vue';
 const props = defineProps({
     showTitle: {
         type: Boolean,
-        required: false,
         default: true,
     },
     sharedState: {

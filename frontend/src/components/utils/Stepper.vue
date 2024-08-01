@@ -45,7 +45,6 @@ const props = defineProps({
     },
     handleConfirmAction: {
         type: Function,
-        required: false,
         default: () => { },
     },
 });
@@ -104,6 +103,6 @@ const goToPreviousStep = () => {
 .current-step {
     display: inline;
     font-weight: bold;
-    color: #ff9900;
+    color: $orange-primary;
 }
 </style>

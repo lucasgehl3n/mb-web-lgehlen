@@ -1,20 +1,26 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const RegistrationController = require('./controllers/registrationController');
+const helmet = require('helmet'); 
+const registrationRoutes = require('./routes/registrationRoutes'); 
+const errorHandler = require('./middlewares/errorHandler'); 
 
 const app = express();
-const port = 3000;
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
+const port = 3000; 
 
+// Configura o middleware
 app.use(cors());
+app.use(helmet());
 app.use(express.json());
 
-app.get('/registration', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
-});
+//Static files
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-app.post('/registration', (req, res) => RegistrationController.register(req, res));
+//Routes
+app.use('/', registrationRoutes);
+
+//Middlewares
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Backend listening at http://localhost:${port}`);

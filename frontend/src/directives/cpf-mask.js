@@ -1,4 +1,3 @@
-// cpfMask.js
 export default {
   beforeMount(el) {
     el.addEventListener('input', (event) => {

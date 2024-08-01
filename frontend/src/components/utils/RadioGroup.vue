@@ -37,7 +37,7 @@ watch(() => props.modelValue, (newValue) => {
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .radio-group {
   justify-content: space-between;
   gap: 16px;

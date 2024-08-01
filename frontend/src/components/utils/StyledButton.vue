@@ -36,12 +36,12 @@ const buttonClass = computed(() => {
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .button {
     padding: 10px 20px;
     font-size: 16px;
-    color: #fff;
-    background-color: #ff9900;
+    color: $white-primary;
+    background-color: $orange-primary;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -49,22 +49,22 @@ const buttonClass = computed(() => {
 }
 
 .button-primary {
-    background-color: #ff9900;
+    background-color: $orange-primary;
 }
 
 .button-primary:hover {
-    background-color: #CC7A00;
+    background-color: $orange-primary;
 }
 
 .button-secondary {
-    background-color: #fff;
-    color: #ff9900;
-    border: 1px solid #ff9900;
+    background-color: $white-primary;
+    color: $orange-primary;
+    border: 1px solid $orange-primary;
 }
 
 .button-secondary:hover {
-    background-color: #ff9900;
-    color: #fff;
+    background-color: $orange-primary;
+    color: $white-primary;
     border: none;
 }
 </style>

@@ -15,11 +15,11 @@
 import StyledInput from '../utils/StyledInput.vue';
 import RadioGroup from '../utils/RadioGroup.vue';
 import TitleContent from '../utils/TitleContent.vue';
+import personType from '../../helpers/enums/personType';
 
 const props = defineProps({
   showTitle: {
     type: Boolean,
-    required: false,
     default: true,
   },
   sharedState: {
@@ -28,13 +28,12 @@ const props = defineProps({
   },
   showTypePerson: {
     type: Boolean,
-    required: false,
     default: true,
   },
 });
 
 const radioOptions = [
-  { value: 'pf', label: 'Pessoa física' },
-  { value: 'pj', label: 'Pessoa jurídica' },
+  { value: personType.PHYSICAL, label: 'Pessoa física' },
+  { value: personType.LEGAL, label: 'Pessoa jurídica' },
 ];
 </script>

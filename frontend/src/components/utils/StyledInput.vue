@@ -25,7 +25,6 @@ const props = defineProps({
     },
     inputAttrs: {
         type: Object,
-        required: false,
         default: () => ({
             type: 'text',
         })
@@ -54,7 +53,7 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .input-container {
     width: 100%;
     display: flex;
@@ -62,11 +61,11 @@ onMounted(() => {
 }
 
 input {
-    color: #333;
+    color: $dark-primary;
     padding: 10px;
     margin: 10px 0;
     border-radius: 8px;
-    border: 1px solid #333;
-    background-color: #fff;
+    border: 1px solid $dark-primary;
+    background-color: $white-primary;
 }
 </style>
