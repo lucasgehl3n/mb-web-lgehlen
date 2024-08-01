@@ -58,6 +58,9 @@ Ela estará disponível na porta 3000 (certifique-se de que esteja livre).
    npm run build-watch
 ```
 
+## **Como acessar**
+Com a aplicação rodando (front-end e back-end), acesse http://localhost:3000/registration no navegador de sua preferência. 
+
 ## Possíveis upgrades
 Como consegui trabalhar no projeto por apenas três dias, gostaria de deixar algumas ideias de melhorias considerando as funcionalides já existentes:
 
